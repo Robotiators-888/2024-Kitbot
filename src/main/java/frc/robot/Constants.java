@@ -14,6 +14,44 @@ package frc.robot;
  */
 public final class Constants {
   public static class OperatorConstants {
+    // Port numbers for driver and operator gamepads. These correspond with the numbers on the USB
+    // tab of the DriverStation
     public static final int kDriverControllerPort = 0;
+    public static final int kOperatorControllerPort = 1;
+    public static final double kDriveDeadband = 0.05;
+    public static final double kArmManualDeadband = 0.05;
+    public static final double kArmManualScale = 0.5;
+    }
+  
+  
+
+  public static final class Drivetrain {
+    public static final int kFrontLeftCanId = 20;
+    public static final int kMiddleLeftCanId = 21;
+    public static final int kRearLeftCanId = 22;
+
+    public static final int kFrontRightCanId = 23;
+    public static final int kMiddleRightCanId =24;
+    public static final int kRearRightCanId = 25;
+
+    public static final boolean kFrontLeftInverted = true;
+    public static final boolean kFrontRightInverted = false;
+    public static final boolean kRearLeftInverted = true;
+    public static final boolean kRearRightInverted = false;
+
+    public static final int kCurrentLimit = 55;
+
+    public static final double kTurningScale = -0.65;
   }
+   public static final class Autonomous{
+    public static final double kmaxVelocity = 5.0;
+    public static final double kmaxAcceleration = 2.0;
+    
+    public static final double TRACKWIDTH = 25; // This is in inches 
+    //1.399in in width per wheel
+    public static final double WHEEL_RADIUS = 3; // wheel radius in inches
+    public static final double GEARRATIO = 10.86; //gear ratio from output shaft of motor to wheel axle
+    
+
+}
 }
