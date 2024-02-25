@@ -8,7 +8,10 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.SUB_Drivetrain;
@@ -44,8 +47,18 @@ public static final SUB_Shooter shooter = new SUB_Shooter();
   , drivetrain)
     );
 
-    m_driverController.a().toggleOnTrue(Commands.startEnd(()->shooter.setShooterSpeed(shooter.adjShootSpeed),()->shooter.setShooterSpeed(0),shooter));
-    m_driverController.b().toggleOnTrue(Commands.startEnd(()->shooter.setFeedSpeed(shooter.adjFeedSpeed),()->shooter.setFeedSpeed(0),shooter));
+    m_driverController.a().whileTrue(new ParallelCommandGroup(
+      new RunCommand(()->shooter.setShooter2Speed(1)),
+      new SequentialCommandGroup(
+        new RunCommand(()->shooter.setShooter1Speed(1))
+      )
+    )).onFalse(
+      new ParallelCommandGroup(
+        new RunCommand(()->shooter.setShooter1Speed(0)),
+        new RunCommand(()->shooter.setShooter2Speed(0))
+      )
+    );
+    m_driverController.b().whileTrue(Commands.startEnd(()->shooter.setFeedSpeed(shooter.adjFeedSpeed),()->shooter.setFeedSpeed(0),shooter));
 
     m_driverController.y().onTrue(new InstantCommand(()-> shooter.increaseFeedSpeed()));
     m_driverController.x().onTrue(new InstantCommand(()-> shooter.decreaseFeedSpeed()));

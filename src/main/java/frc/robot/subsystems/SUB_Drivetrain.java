@@ -408,10 +408,7 @@ public double invertEncoderVal(double currentVal){
     driveOdometry.update(getGyroHeading(), this.rotationsToMeters(leftPrimaryEncoder.getPosition()),
     this.rotationsToMeters(rightPrimaryEncoder.getPosition()));
 
-    field2d.setRobotPose(driveOdometry.getPoseMeters());
-
     // This method will be called once per scheduler run
-    SmartDashboard.putData("Field",field2d);
     SmartDashboard.putBoolean("BREAK MODE", brake);
     SmartDashboard.putNumber("Left Primary Encoder", leftPrimaryEncoder.getPosition());
     SmartDashboard.putNumber("Left Secondary Encoder", leftSecondaryEncoder.getPosition());
